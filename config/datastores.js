@@ -48,8 +48,8 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-    adapter: 'sails-mongo',
-    url: 'mongodb://utsavkh:675915xiCD4QCw3Vqt63f@15.206.7.200:28017/utsavkh?authMechanism=DEFAULT&authSource=admin'
+    // adapter: 'sails-mongo',
+    // url: 'mongodb://utsavkh:675915xiCD4QCw3Vqt63f@15.206.7.200:28017/utsavkh?authMechanism=DEFAULT&authSource=admin'
 
 
   },
