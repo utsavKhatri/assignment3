@@ -1,0 +1,38 @@
+<%- include('../partials/navbar.ejs') %>
+<body>
+  <div class="conatiner my-5 px-3">
+    <div class="row conatiner px-4">
+      <div class="col-5">
+        <form action="/addAccount/<%= req.session.user._id  %>" method="post">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="acc-name">transaction text</label>
+            <input
+              type="text"
+              id="acc-name"
+              class="form-control"
+              name="name"
+              required
+            />
+          </div>
+          <div class="form-outline mb-4">
+            <button type="submit" class="btn btn-success">
+              create new account
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-5">
+        <% if(accData.length<0){ %>
+        <p>no account are created, create new</p>
+        <% }else{ accData.map(v=>{ %>
+        <div
+          class="col-5 d-flex flex-column justify-content-between align-items-center border border-gray shadow p-3 mb-5 bg-body rounded px-3"
+        >
+          <div class="fw-bold"><p> account name: <%= v.name %></p></div>
+          <div class="text-muted"><p>owner: <%= v.owner %></p></div>
+        </div>
+        <% }) } %>
+      </div>
+    </div>
+  </div>
+</body>
