@@ -1,0 +1,27 @@
+<%- include('../partials/navbar.ejs') %>
+
+<body>
+  <div class="conatiner my-5 px-3 d-flex justify-content-center align-items-center gap-3 flex-column">
+    
+        <h1>Update account page</h1>
+        <form action="/editAccount/<%= data.id  %>" method="post" class="w-75">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="acc-name">Add new account Name</label>
+            <input
+              type="text"
+              id="acc-name"
+              class="form-control"
+              name="name"
+              value="<%= data.name %>"
+              required
+            />
+          </div>
+          <div class="form-outline mb-4">
+            <button type="submit" class="btn btn-success">
+              Update
+            </button>
+          </div>
+        </form>
+  
+  </div>
+</body>

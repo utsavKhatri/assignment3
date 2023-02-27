@@ -17,6 +17,6 @@ module.exports = {
       unique: true,
     },
     password: { type: "string", required: true },
-    accounts: { collection: 'Accounts', via: 'owner' }
+    accounts: { collection: 'Accounts', via: 'owner' },
   },
 };

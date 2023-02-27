@@ -5,36 +5,40 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const { createToken } = require("../utils");
+const { createToken, mailData } = require("../utils");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 
 module.exports = {
-  /* A function that is called when the user visits the viewUser page. */
-  viewPage: async (req, res) => {
-    // console.log(userData);
-    res.view("pages/viewUser");
-  },
-
-  /* A function that is called when the user visits the viewUser page. */
-  viewUser: (req, res) => {
-    res.view("pages/homepage");
-  },
-  /* A function that is called when the user visits the about page. */
-  aboutPage: (req, res) => {
-    res.view("pages/about");
-  },
-
-  /* This is a function that is called when the user visits the login page. */
+  /**
+   * GET /login
+   *
+   * @description  This is a function render loginpage
+   * @return {view} - render view loginpage
+   */
   viewLogin: async (req, res) => {
     sails.log.info("you visit login page");
     res.view("pages/loginpage");
   },
-
+  /**
+   * GET /register
+   *
+   * @description  This is a function render signuppage
+   * @return {view} - render view signuppage
+   */
   viewSignup: async (req, res) => {
     sails.log.info("you visit signUp page");
     res.view("pages/signup");
   },
 
+  /**
+   * POST /login
+   *
+   * @description  This function is called when the user visits the login page.
+   * @param {Object} req - email, password from body
+   * @return {redirect} - redirect to  "/home"
+   * @rejects {Error} - If failed log error
+   */
   userLogin: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -52,13 +56,13 @@ module.exports = {
       console.log("this user that search by emai =====");
       console.log(user);
       if (!user) {
-        return res.status(401).json({ message: "Invalid email or password" });
+        return res.status(401).json({ message: "Invalid email" });
       }
 
       // Check if the password is correct
       const passwordMatches = await bcrypt.compare(password, user.password);
       if (!passwordMatches) {
-        return res.status(401).json({ message: "Invalid email or password" });
+        return res.status(401).json({ message: "Invalid password" });
       }
 
       /* Creating a token and setting it to the session. */
@@ -90,7 +94,14 @@ module.exports = {
     }
   },
 
-  /* This is a function that is called when the user visits the signup page. */
+  /**
+   * POST /register
+   *
+   * @description  This is a function that is called when the user click signup on signup page.
+   * @param {Object} req - name,email, password from body
+   * @return {redirect} - redirect to  "/login"
+   * @rejects {Error} - If failed log error
+   */
   userSignup: async (req, res) => {
     try {
       const { name, email, password } = req.body;
@@ -124,19 +135,48 @@ module.exports = {
       console.log(req.session);
       console.log("====================================");
 
+      let testAccount = await nodemailer.createTestAccount();
+      let transporter = nodemailer.createTransport(mailData);
+
+      let info = await transporter.sendMail({
+        from: '"expense manager app" <expenseManager.com>', // sender address
+        to: req.session.user.email, // list of receivers
+        subject: "Welcome email", // Subject line
+        text: "Hello world?", // plain text body
+        html: `<b>hello ${req.session.user.name},\n You successfully create account in expense manager app</b>`, // html body
+      });
+      console.log("Message sent: %s", info.messageId);
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+      // Preview only available when sending through an Ethereal account
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
       return res.redirect("/login");
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server error" });
     }
   },
-
+  /**
+   * /logout
+   *
+   * @description  This is a function destroy session and logout user
+   * @return {redirect} - redirect to  "/login"
+   * @rejects {Error} - If failed log error
+   */
   userLogout: async (req, res) => {
     req.session.destroy(() => {
       res.redirect("/");
     });
   },
-
+  /**
+   * GET /editProfile
+   *
+   * @description  This is a function render editProfile page for edit profile.
+   * @param {String} req - email
+   * @return {view} - render "pages/editprofile"
+   * @rejects {Error} - If failed log error
+   */
   editProfile: async (req, res) => {
     try {
       console.log(req.session);
@@ -149,6 +189,14 @@ module.exports = {
     }
   },
 
+  /**
+   * POST /editProfile
+   *
+   * @description  This is a function update user data
+   * @param {Object} req - session.user data
+   * @return {redirect} - redirect to "/"
+   * @rejects {Error} - If failed log error
+   */
   updateProfile: async (req, res) => {
     try {
       const dmta = req.session.user;
@@ -178,5 +226,15 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
     }
+  },
+
+  /**
+   * GET /about
+   *
+   * @description  This is a function render aboutpage
+   * @return {view} - render view aboutpage
+   */
+  aboutPage: (req, res) => {
+    res.view("pages/about");
   },
 };

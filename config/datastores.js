@@ -12,7 +12,8 @@
  * For more information on configuring datastores, check out:
  * https://sailsjs.com/config/datastores
  */
-
+const dotenv = require('dotenv');
+dotenv.config();
 module.exports.datastores = {
 
 
@@ -48,8 +49,8 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-    // adapter: 'sails-mongo',
-    // url: 'mongodb://utsavkh:675915xiCD4QCw3Vqt63f@15.206.7.200:28017/utsavkh?authMechanism=DEFAULT&authSource=admin'
+    adapter: 'sails-mongo',
+    url: process.env.MONGO_URL
 
 
   },

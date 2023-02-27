@@ -1,57 +1,44 @@
 <div class="container d-flex justify-content-center align-items-center flex-column" style="height: 100dvh;">
-  <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+  <!--  button  -->
+  <ul class="row nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
     <li class="nav-item" role="presentation">
-      <a
-        class="nav-link"
-        id="tab-login"
-        data-mdb-toggle="pill"
-        href="/login"
-        role="tab"
-        aria-controls="pills-login"
-        aria-selected="true"
-        >Login</a
-      >
+      <a class="nav-link" id="tab-login" data-mdb-toggle="pill" href="/login" role="tab" aria-controls="pills-login"
+        aria-selected="true">Login</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a
-        class="nav-link active"
-        id="tab-register"
-        data-mdb-toggle="pill"
-        href="/register"
-        role="tab"
-        aria-controls="pills-register"
-        aria-selected="false"
-        >Register</a
-      >
+      <a class="nav-link active" id="tab-register" data-mdb-toggle="pill" href="/register" role="tab"
+        aria-controls="pills-register" aria-selected="false">Register</a>
     </li>
   </ul>
-  <div class="tab-content">
-    <form class="row justify-content-center" action="/register" method="post">
-      <!-- Email input -->
-      <div class="form-outline mb-4">
-        <label class="form-label" for="forName">Full Name</label>
-        <input type="text" id="forName" class="form-control" name="name" required/>
-      </div>
-  
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form2Example1">Email address</label>
-        <input type="email" id="form2Example1" class="form-control" name="email" required/>
-      </div>
-    
-      <!-- Password input -->
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form2Example2">Password</label>
-        <input type="password" id="form2Example2" class="form-control" name="password" required />
-      </div>
-    
-      <!-- 2 column grid layout for inline styling -->
+  <!--  signup form section  -->
+  <div class="row tab-content justify-content-center">
+    <div class="col-10 col-md-7 tab-pane fade show active" id="pills-signup" role="tabpanel" aria-labelledby="tab-signup">
+      <form class="row justify-content-center" action="/register" method="post">
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="forName">Full Name</label>
+          <input type="text" id="forName" class="form-control" name="name" required />
+        </div>
 
-    
-      <!-- Submit button -->
-      <button type="submit" class="btn btn-primary btn-block mb-4">Sign Up</button>
-    
-      <!-- Register buttons -->
-    </form>
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form2Example1">Email address</label>
+          <input type="email" id="form2Example1" class="form-control" name="email" required />
+        </div>
 
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form2Example2">Password</label>
+          <input type="password" id="form2Example2" class="form-control" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" minlength="8" required />
+        </div>
+
+        <!-- 2 column grid layout for inline styling -->
+
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Sign Up</button>
+
+        <!-- Register buttons -->
+      </form>
+    </div>
   </div>
 </div>

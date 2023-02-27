@@ -1,6 +1,12 @@
 const jwt = require("jsonwebtoken");
-
-/* This is a middleware function that is checking if the user is logged in or not. */
+const dotenv = require('dotenv');
+dotenv.config();
+/**
+ * This is a middleware function.
+ * @param {token} req
+ * @return procced 
+ * @rejects {Error}
+ */
 module.exports = async(req, res, proceed) => {
   try {
     const token = req.session.jwt;
@@ -8,7 +14,7 @@ module.exports = async(req, res, proceed) => {
     console.log("================ this is auth middleware ====================");
     console.log(req.session);
     console.log("====================================");
-    const decoded = jwt.verify(token, "utsav");
+    const decoded = jwt.verify(token, process.env.SECRET);
     console.log(decoded);
     if (!req.session.user) {
       return res.redirect('login');
