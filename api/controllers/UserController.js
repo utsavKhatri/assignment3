@@ -135,7 +135,7 @@ module.exports = {
       console.log(req.session);
       console.log("====================================");
 
-      let testAccount = await nodemailer.createTestAccount();
+
       let transporter = nodemailer.createTransport(mailData);
 
       let info = await transporter.sendMail({

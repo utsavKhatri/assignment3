@@ -172,7 +172,7 @@ module.exports = {
       const latestData = await Accounts.updateOne({ id: accountId }).set({
         sharedWith: newSharedlist,
       });
-      let testAccount = await nodemailer.createTestAccount();
+
       /* This is a function that is used to send email to the user. */
       let transporter = nodemailer.createTransport(mailData);
 
