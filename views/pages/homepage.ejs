@@ -44,7 +44,7 @@
             </div>
             <div
               class="col-5 d-flex flex-column justify-content-between align-items-center border border-gray shadow p-3 mb-5 bg-body rounded px-3">
-              Expenss :
+              Expenses :
               <h3 class="text-danger">
                 <%= expenses %>
               </h3>
@@ -59,17 +59,17 @@
                 <span class="text-muted">no transaction available on <%= nameAccount %> Account</span>
                 <% }else{ data.map(v=>{ %>
                   <div
-                    class="d-flex justify-content-between flex-column flex-lg-row gap-3 align-items-center border border-gray shadow p-2 mb-4 bg-body rounded px-3">
+                    class="d-flex justify-content-between flex-column flex-lg-row gap-3 align-items-center border me-auto border-gray shadow p-2 mb-4 bg-body rounded px-3">
                     <b class="text-body">
                       <%= v.text %>
                     </b>
-                    <span class="text-<% if(v.amount<0){%>danger<%}else{%>success<%}%> mb-0">
+                    <span class="text-<% if(v.amount<0){%>danger<%}else{%>success<%}%> mb-0 m-auto">
                       <%=v.amount %> Transfer <% if(v.amount<0){%>to<%}else{%>from<%}%> <%= v.transfer %>
                     </span>
-                    <span class="text-muted"> Category:
+                    <span class="text-muted m-auto"> Category:
                       <%= v.category %>
                     </span>
-                    <a href="/editTransaction/<%= v.id  %>" class="btn btn-sm btn-primary rounded-pill"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="/editTransaction/<%= v.id  %>" class="btn btn-sm btn-primary rounded-pill ms-0 ms-lg-auto"><i class="fa-solid fa-pen-to-square"></i></a>
                     <form action="/rmTransaction/<%= v.id  %>" method="post">
                       <input type="text" hidden name="accId" value="<%= accountId  %>">
                       <button type="submit" class="btn btn-sm btn-danger rounded-pill">

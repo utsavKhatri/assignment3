@@ -18,11 +18,6 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
 
-  // "GET /": "UserController.viewPage",
-  // "GET /home": "UserController.viewPage",
-
-  // "GET /": "TransactionController.getTrsansaction",
-  // "GET /home": "TransactionController.getTrsansaction",
   "GET /about": "UserController.aboutPage",
   "GET /login": "UserController.viewLogin",
   "GET /": "AccountsController.viewAccount",
@@ -30,22 +25,22 @@ module.exports.routes = {
   "GET /register": "UserController.viewSignup",
   "GET /editProfile": "UserController.editProfile",
   "GET /editTransaction/:id": "TransactionController.editTransaction",
-  "POST /editTransaction/:id": "TransactionController.updateTransaction",
   "GET /editAccount/:id": "AccountsController.editAccount",
+  "GET /viewTransaction/:id": "TransactionController.getTrsansaction",
+  "GET /logout": "UserController.userLogout",
+  "GET /share/:id": "AccountsController.share",
+  "GET /delAccount/:accId": "AccountsController.delAccount",
+
+  "POST /editTransaction/:id": "TransactionController.updateTransaction",
   "POST /editAccount/:id": "AccountsController.updateAccount",
-  
   "POST /login": "UserController.userLogin",
   "POST /register": "UserController.userSignup",
   "POST /editProfile": "UserController.updateProfile",
   "POST /addTransaction/:tId": "TransactionController.addTrsansaction",
   "POST /addAccount/:userId": "AccountsController.addAccount",
   "POST /account/share/:id": "AccountsController.shareAccount",
-  
-  "/viewTransaction/:id": "TransactionController.getTrsansaction",
-  "/logout": "UserController.userLogout",
-  "/rmTransaction/:delId": "TransactionController.rmTransaction",
-  "/share/:id": "AccountsController.share",
-  "/delAccount/:accId": "AccountsController.delAccount",
+  "POST /rmTransaction/:delId": "TransactionController.rmTransaction",
+
   /***************************************************************************
    *                                                                          *
    * More custom routes here...                                               *

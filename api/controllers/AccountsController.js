@@ -113,7 +113,7 @@ module.exports = {
     try {
       const delacc = await Accounts.destroy({ id: id });
       const delTrans = await Transaction.destroy({ account: id });
-      res.redirect("/");
+      res.redirect("/home");
     } catch (error) {
       console.log(error.message);
     }
