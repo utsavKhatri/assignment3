@@ -5,8 +5,10 @@
   <div class="form w-50">
     <form action="/account/share/<%= account.id  %>" method="post">
       <div class="form-outline mb-4">
+        <% if (sharedList.length>0) { %>
         <h4>You previously shared your accounts with</h4>
         <span> <% sharedList.map(v=>{%><%= v.name %>, <%}) %> </span>
+        <% } %>
       </div>
       <div class="form-outline mb-4">
         <select
