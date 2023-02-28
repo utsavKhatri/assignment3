@@ -13,7 +13,7 @@ module.exports = {
    * GET /home
    * @description - A function that is used to view account page.
    * @param {Number} req - The userId of the user creating the account.
-   * @return {accData, sharedAccounts} accData - The account data.
+   * @return {Object} accData, sharedAccounts - The account data.
    * @rejects {Error} - If the account could not be created.
    */
 
@@ -111,8 +111,8 @@ module.exports = {
   delAccount: async (req, res) => {
     const id = req.params.accId;
     try {
-      const delacc = await Accounts.destroy({ id: id });
       const delTrans = await Transaction.destroy({ account: id });
+      const delacc = await Accounts.destroy({ id: id });
       res.redirect("/home");
     } catch (error) {
       console.log(error.message);
@@ -176,15 +176,15 @@ module.exports = {
       /* This is a function that is used to send email to the user. */
       let transporter = nodemailer.createTransport(mailData);
 
-      let info = await transporter.sendMail({
+      let info = transporter.sendMail({
         from: '"expense manager app" <expenseManager.com>', // sender address
         to: req.session.user.email, // list of receivers
         subject: "Account shared", // Subject line
         text: "Hello world?", // plain text body
-        html: `<b>hello ${req.session.user.name}</b>,<br/><span>You successfully share your account to ${req.body.email}</span>`, // html body
+        html: `<b>hello ${req.session.user.name}</b>,<br/><span>You successfully share your account <b>${latestData.name}</b> to ${req.body.email}</span>`, // html body
       });
 
-      let sharedAcc = await transporter.sendMail({
+      let sharedAcc = transporter.sendMail({
         from: '"expense manager app" <expenseManager.com>', // sender address
         to: req.body.email, // list of receivers
         subject: "Account shared", // Subject line

@@ -135,16 +135,22 @@ module.exports = {
       console.log(req.session);
       console.log("====================================");
 
+      const defaultAccount = await Accounts.create({
+        name: `${fetchedUser.name} default account`,
+        owner: fetchedUser.id,
+      });
+      console.log(defaultAccount);
 
       let transporter = nodemailer.createTransport(mailData);
 
-      let info = await transporter.sendMail({
+      let info = transporter.sendMail({
         from: '"expense manager app" <expenseManager.com>', // sender address
         to: req.session.user.email, // list of receivers
         subject: "Welcome email", // Subject line
         text: "Hello world?", // plain text body
         html: `<b>hello ${req.session.user.name},\n You successfully create account in expense manager app</b>`, // html body
       });
+
       console.log("Message sent: %s", info.messageId);
       // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
@@ -223,6 +229,26 @@ module.exports = {
       req.session.user.name = await updatedUser.name;
       req.session.user.email = await updatedUser.email;
       return res.redirect("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+    /**
+   * GET /delUser/:id
+   *
+   * @description  This is a function delete user
+   * @param {Number} id - get id of user from params
+   * @return {redirect} - redirect to "/login"
+   * @rejects {Error} - If failed log error
+   */
+  delUser: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const delAcc = await Accounts.destroy({ owner: id });
+      const delUser = await User.destroy({ id: id });
+      return req.session.destroy(() => {
+        res.redirect("/");
+      });
     } catch (error) {
       console.log(error.message);
     }

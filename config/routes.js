@@ -30,6 +30,7 @@ module.exports.routes = {
   "GET /logout": "UserController.userLogout",
   "GET /share/:id": "AccountsController.share",
   "GET /delAccount/:accId": "AccountsController.delAccount",
+  "GET /delUser/:id": "UserController.delUser",
 
   "POST /editTransaction/:id": "TransactionController.updateTransaction",
   "POST /editAccount/:id": "AccountsController.updateAccount",
