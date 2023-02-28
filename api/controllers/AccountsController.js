@@ -169,7 +169,7 @@ module.exports = {
       const sharedWithUser = await User.findOne({ email: sharedWithEmail });
 
       account.sharedWith = [...account.sharedWith, sharedWithUser];
-      // Add the user ID to the account's sharedWith array
+      // Add the user to the account's sharedWith array
       const latestData = await Accounts.updateOne({ id: accountId }).set({
         sharedWith: account.sharedWith,
       });
