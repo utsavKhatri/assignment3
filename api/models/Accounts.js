@@ -6,33 +6,27 @@
  */
 
 module.exports = {
-
   attributes: {
-      name: { type: 'string', required: true },
-      owner: {
-        model: 'User',
-        required: true
-      },
-      sharedWith: { type: 'json', columnType: 'array', defaultsTo: [] },
-      transactions: {
-        collection: 'transaction',
-        via: 'account'
-      }
+    name: { type: "string", required: true },
+    owner: {
+      model: "User",
+      required: true,
+    },
+    sharedWith: { type: "json", columnType: "array", defaultsTo: [] },
+    transactions: {
+      collection: "transaction",
+      via: "account",
+    },
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
 
-
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-
   },
-
 };
-

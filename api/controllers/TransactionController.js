@@ -8,6 +8,8 @@
 module.exports = {
   /**
    * GET /viewTransaction/:id
+   *
+   *
    * @description function getting the transactions of a specific account.
    * @param {Number} req - find transaction by id
    * @return {view} res - render "pages/homepage"

@@ -64,7 +64,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-    /**
+  /**
    * GET /editAccount/:id
    * @description - This is a function that is used redirect user to editaccountpage.
    * @param {Number} req - id from params for search data
@@ -81,21 +81,21 @@ module.exports = {
       console.log(error.message);
     }
   },
-      /**
+  /**
    * POST /editAccount/:id
    * @description - This is a function that is used to update accountdata
    * @param {Number} req - id from params for search data
    * @return {redirect} redirect to "/"
    * @rejects {Error} - If the account could not be created.
    */
-  updateAccount:async(req,res)=>{
+  updateAccount: async (req, res) => {
     const accountId = req.params.id;
     try {
       const criteria = { _id: accountId };
       const values = req.body;
       console.log(criteria, values);
       const updatedAccount = await Accounts.updateOne(criteria).set(values);
-      return res.redirect('/');
+      return res.redirect("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -130,13 +130,13 @@ module.exports = {
   share: async (req, res) => {
     try {
       console.log("get share page", req.params.id);
-
       const account = await Accounts.findOne({
         id: req.params.id,
         owner: req.session.user._id,
       });
+      const sharedList = account.sharedWith;
       const users = await User.find();
-      return res.view("pages/shareAccountpage", { account, users });
+      return res.view("pages/shareAccountpage", { account, users, sharedList });
     } catch (error) {
       console.log(error.message);
     }
@@ -159,18 +159,19 @@ module.exports = {
       console.log("post share account page", accountId, sharedWithEmail);
 
       // Find the account by ID and ensure that the currently authenticated user is the owner
-      const account = await Accounts.find({
+      const account = await Accounts.findOne({
         id: accountId,
         owner: req.session.user._id,
       });
 
-      // Find the user to share the account with
-      const sharedWithUser = await User.find({ email: sharedWithEmail });
+      console.log("exitis account", account);
 
-      const newSharedlist = [...sharedWithUser, sharedWithUser.id];
+      const sharedWithUser = await User.findOne({ email: sharedWithEmail });
+
+      account.sharedWith = [...account.sharedWith, sharedWithUser];
       // Add the user ID to the account's sharedWith array
       const latestData = await Accounts.updateOne({ id: accountId }).set({
-        sharedWith: newSharedlist,
+        sharedWith: account.sharedWith,
       });
 
       /* This is a function that is used to send email to the user. */

@@ -1,24 +1,31 @@
-<div class="container d-flex justify-content-center align-items-center vh-100" style="height: 100dvh;">
-    <div class="form w-50">
-        <form action="/account/share/<%= account.id  %>" method="post">
-            <div class="form-outline mb-4">
-                <select class="form-select" name="email" aria-label="Default select example">
-
-                    <% users.map(v=>{ if(v.id==req.session.user._id){ %>
-                        <option selected value="<%= v.email %>">
-                           Your Account: <%= v.email %> 
-                        </option>
-                        <% }else{ %>
-                            <option value="<%= v.email %>">
-                                <%= v.email %>
-                            </option>
-                            <% } }) %>
-                </select>
-            </div>
-            <div class="form-outline mb-4">
-                <button type="submit" class="btn btn-primary">Share Account</button>
-            </div>
-
-        </form>
-    </div>
+<div
+  class="container d-flex justify-content-center align-items-center vh-100"
+  style="height: 100dvh"
+>
+  <div class="form w-50">
+    <form action="/account/share/<%= account.id  %>" method="post">
+      <div class="form-outline mb-4">
+        <h4>You previously shared your accounts with</h4>
+        <span> <% sharedList.map(v=>{%><%= v.name %>, <%}) %> </span>
+      </div>
+      <div class="form-outline mb-4">
+        <select
+          class="form-select"
+          name="email"
+          aria-label="Default select example"
+        >
+          <% users.map(v=>{ if(v.id==req.session.user._id){ %>
+          <option selected value="<%= v.email %>">
+            Your Account: <%= v.email %>
+          </option>
+          <% }else{ %>
+          <option value="<%= v.email %>"><%= v.email %></option>
+          <% } }) %>
+        </select>
+      </div>
+      <div class="form-outline mb-4">
+        <button type="submit" class="btn btn-primary">Share Account</button>
+      </div>
+    </form>
+  </div>
 </div>

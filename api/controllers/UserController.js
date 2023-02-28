@@ -233,7 +233,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-    /**
+  /**
    * GET /delUser/:id
    *
    * @description  This is a function delete user
