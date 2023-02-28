@@ -62,7 +62,8 @@
     //   "ObjectExpression": 1,
     //   "ignoredNodes": ["ConditionalExpression"]
     // }],
-    "indent":"off",
+    "indent": [2, "tab"],
+    "no-tabs": 0,
     "linebreak-style":              ["error", "unix"],
     "no-dupe-keys":                 ["error"],
     "no-duplicate-case":            ["error"],

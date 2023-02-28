@@ -1,134 +1,91 @@
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-  crossorigin="anonymous"
-/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
 
 <body>
   <%- include('../partials/navbar.ejs') %>
-  <div class="container">
-    <h1 class="row heading my-5 text-center">
-      Transactions page for <%= nameAccount %> Account
-    </h1>
+    <div class="container">
+      <h1 class="row heading my-5 text-center">
+        Transactions page for <%= nameAccount %> Account
+      </h1>
 
-    <div class="row justify-content-center">
-      <div class="col-11 col-md-5">
-        <div class="row">
-          <form action="/addTransaction/<%= accountId %>" method="post">
-            <div class="form-outline mb-4">
-              <label class="form-label" for="tran-text">transaction text</label>
-              <input
-                type="text"
-                id="tran-text"
-                class="form-control"
-                name="text"
-                required
-              />
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="tran-amount">Amount</label
-              ><small class="text-muted">
-                (positive:income, negative:expenss)</small
-              >
-              <input
-                type="number"
-                id="tran-amount"
-                class="form-control"
-                name="amount"
-                required
-              />
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="tran-transfer">Transfer</label>
-              <input
-                type="text"
-                id="tran-transfer"
-                class="form-control"
-                name="transfer"
-                required
-              />
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="tran-category">Category</label>
-              <input
-                type="text"
-                id="tran-category"
-                class="form-control"
-                name="category"
-                required
-              />
-            </div>
-            <div class="form-outline mb-4">
-              <button type="submit" class="btn btn-primary">
-                add transction
-              </button>
-            </div>
-          </form>
-        </div>
-        <div class="row gap-3 justify-content-center">
-          <div
-            class="col-5 d-flex flex-column justify-content-between align-items-center border border-gray shadow p-3 mb-5 bg-body rounded px-3"
-          >
-            Income :
-            <h3 class="text-success"><%= income %></h3>
-          </div>
-          <div
-            class="col-5 d-flex flex-column justify-content-between align-items-center border border-gray shadow p-3 mb-5 bg-body rounded px-3"
-          >
-            Expenses :
-            <h3 class="text-danger"><%= expenses %></h3>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-7">
-        <div
-          class="row container d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="col-12 col-md-11 mb-4">
-            <h4 class="mb-4">Transactions histroy:</h4>
-            <% if (data.length<1) { %>
-            <span class="text-muted"
-              >no transaction available on <%= nameAccount %> Account</span
-            >
-            <% }else{ data.map(v=>{ %>
-            <div
-              class="d-flex justify-content-between flex-column flex-lg-row gap-3 align-items-center border me-auto border-gray shadow p-2 mb-4 bg-body rounded px-3"
-            >
-              <b class="text-body"> <%= v.text %> </b>
-              <span
-                class="text-<% if(v.amount<0){%>danger<%}else{%>success<%}%> mb-0 mx-auto"
-              >
-                <%=v.amount %> Transfer <%
-                if(v.amount<0){%>to<%}else{%>from<%}%> <%= v.transfer %>
-              </span>
-              <span class="text-muted m-auto">
-                Category: <%= v.category %>
-              </span>
-              <a
-                href="/editTransaction/<%= v.id  %>"
-                class="btn btn-sm btn-primary rounded-pill ms-0 ms-lg-auto"
-                ><i class="fa-solid fa-pen-to-square"></i
-              ></a>
-              <form action="/rmTransaction/<%= v.id  %>" method="post">
-                <input
-                  type="text"
-                  hidden
-                  name="accId"
-                  value="<%= accountId  %>"
-                />
-                <button
-                  type="submit"
-                  class="btn btn-sm btn-danger rounded-pill"
-                >
-                  &#10005;
+      <div class="row justify-content-center">
+        <div class="col-11 col-md-5">
+          <div class="row">
+            <form action="/addTransaction/<%= accountId %>" method="post">
+              <div class="form-outline mb-4">
+                <label class="form-label" for="tran-text">transaction text</label>
+                <input type="text" id="tran-text" class="form-control" name="text" required />
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="tran-amount">Amount</label><small class="text-muted">
+                  (positive:income, negative:expenss)</small>
+                <input type="number" id="tran-amount" class="form-control" name="amount" required />
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="tran-transfer">Transfer</label>
+                <input type="text" id="tran-transfer" class="form-control" name="transfer" required />
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="tran-category">Category</label>
+                <input type="text" id="tran-category" class="form-control" name="category" required />
+              </div>
+              <div class="form-outline mb-4">
+                <button type="submit" class="btn btn-primary">
+                  add transction
                 </button>
-              </form>
+              </div>
+            </form>
+          </div>
+          <div class="row gap-3 justify-content-center">
+            <div
+              class="col-5 d-flex flex-column justify-content-between align-items-center border border-gray shadow p-3 mb-5 bg-body rounded px-3">
+              Income :
+              <h3 class="text-success">
+                <%= income %>
+              </h3>
             </div>
-            <% })} %>
+            <div
+              class="col-5 d-flex flex-column justify-content-between align-items-center border border-gray shadow p-3 mb-5 bg-body rounded px-3">
+              Expenses :
+              <h3 class="text-danger">
+                <%= expenses %>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-7">
+          <div class="row container d-flex flex-column justify-content-center align-items-center">
+            <div class="col-12 col-md-11 mb-4">
+              <h4 class="mb-4">Transactions histroy:</h4>
+              <% if (data.length<1) { %>
+                <span class="text-muted">no transaction available on <%= nameAccount %> Account</span>
+                <% }else{ data.map(v=>{ %>
+                  <div
+                    class="d-flex justify-content-between flex-column flex-lg-row gap-3 align-items-center border me-auto border-gray shadow p-2 mb-4 bg-body rounded px-3">
+                    <b class="text-body">
+                      <%= v.text %>
+                    </b>
+                    <span class="text-<% if(v.amount<0){%>danger<%}else{%>success<%}%> mb-0 mx-auto">
+                      <%=v.amount %> Transfer <% if(v.amount<0){%>to<%}else{%>from<%}%>
+                              <%= v.transfer %>
+                    </span>
+                    <span class="text-muted m-auto">
+                      Category: <%= v.category %>
+                    </span>
+                    <a href="/editTransaction/<%= v.id  %>"
+                      class="btn btn-sm btn-primary rounded-pill ms-0 ms-lg-auto"><i
+                        class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="/rmTransaction/<%= v.id  %>" method="post">
+                      <input type="text" hidden name="accId" value="<%= accountId  %>" />
+                      <button type="submit" class="btn btn-sm btn-danger rounded-pill">
+                        &#10005;
+                      </button>
+                    </form>
+                  </div>
+                  <% })} %>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </body>

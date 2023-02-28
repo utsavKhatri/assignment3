@@ -39,6 +39,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
 
@@ -62,6 +63,7 @@ module.exports = {
       res.redirect("/home");
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -79,6 +81,7 @@ module.exports = {
       res.view("pages/editAccount", { data: accountData });
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -98,6 +101,7 @@ module.exports = {
       return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
 
@@ -116,6 +120,7 @@ module.exports = {
       res.redirect("/home");
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -139,6 +144,7 @@ module.exports = {
       return res.view("pages/shareAccountpage", { account, users, sharedList });
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
 
@@ -204,6 +210,7 @@ module.exports = {
       return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
 };

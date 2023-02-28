@@ -1,113 +1,85 @@
 <%- include('../partials/navbar.ejs') %>
-<style>
-  .card {
-    background: rgb(253, 253, 253);
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-      rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-      rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  }
-</style>
+  <style>
+    .card {
+      background: rgb(253, 253, 253);
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
+  </style>
 
-<body>
-  <div class="conatiner my-5 px-3">
-    <div class="row row-cols-md-1 conatiner px-4">
-      <div class="col-12 col-md-6 col-lg-5 gap-3 mb-4">
-        <h1>Create a new account</h1>
-        <form action="/addAccount/<%= req.session.user._id  %>" method="post">
-          <div class="form-outline mb-4">
-            <label class="form-label" for="acc-name">Add account name</label>
-            <input
-              type="text"
-              id="acc-name"
-              class="form-control"
-              name="name"
-              required
-            />
-          </div>
-          <div class="form-outline mb-4">
-            <button type="submit" class="btn btn-success">
-              create new account
-            </button>
-          </div>
-        </form>
-        <div
-          class="row d-flex flex-column justify-content-center align-items-center flex-lg-row gap-4 border-top pt-4"
-        >
-          <span>Shared Account</span>
-          <% if(!sharedAccounts){ %>
-          <span class="text-muted"
-            >no shared account are created, create new</span
-          >
-          <% }else{ sharedAccounts.map(v=>{ %>
+  <body>
+    <div class="conatiner my-5 px-3">
+      <div class="row row-cols-md-1 conatiner px-4">
+        <div class="col-12 col-md-6 col-lg-5 gap-3 mb-4">
+          <h1>Create a new account</h1>
+          <form action="/addAccount/<%= req.session.user._id  %>" method="post">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="acc-name">Add account name</label>
+              <input type="text" id="acc-name" class="form-control" name="name" required />
+            </div>
+            <div class="form-outline mb-4">
+              <button type="submit" class="btn btn-success">
+                create new account
+              </button>
+            </div>
+          </form>
           <div
-            class="col-9 col-md-7 col-lg-4 card p-3 d-flex flex-column justify-content-between"
-          >
-            <div class="fw-bold">
-              <p>Shared Acc. name: <b> <%= v.name %> </b></p>
-            </div>
-            <div class="text-success">
-              <p>Owner: <%= v.owner.name %></p>
-            </div>
-            <a
-              class="btn btn-sm btn-primary link"
-              href="/viewTransaction/<%= v.id  %>"
-              >+ Transactions</a
-            >
+            class="row d-flex flex-column justify-content-center align-items-center flex-lg-row gap-4 border-top pt-4">
+            <span>Shared Account</span>
+            <% if(!sharedAccounts){ %>
+              <span class="text-muted">no shared account are created, create new</span>
+              <% }else{ sharedAccounts.map(v=>{ %>
+                <div class="col-9 col-md-7 col-lg-4 card p-3 d-flex flex-column justify-content-between">
+                  <div class="fw-bold">
+                    <p>Shared Acc. name: <b>
+                        <%= v.name %>
+                      </b></p>
+                  </div>
+                  <div class="text-success">
+                    <p>Owner: <%= v.owner.name %>
+                    </p>
+                  </div>
+                  <a class="btn btn-sm btn-primary link" href="/viewTransaction/<%= v.id  %>">+ Transactions</a>
+                </div>
+                <% }) } %>
           </div>
-          <% }) } %>
         </div>
-        <!-- 
-          <form method="POST" action="/addAccount/<%= req.session.user._id  %>">
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required />
-            <button type="submit">Create</button>
-          </form> -->
-      </div>
-      <div class="col-12 col-md-6 gap-3 border-start border-sm-top ps-4">
-        <div class="row">
-          <span class="mb-4">My accounts:</span>
-          <div class="col-12 d-flex flex-column flex-md-row gap-4">
-            <% if(accData.length<1){ %>
-            <span class="text-muted">no account are created, create new</span>
-            <% }else{ accData.map(v=>{ %>
-            <div class="card p-3 d-flex flex-column justify-content-between">
-              <div class="fw-bold">
-                <p>Account name: <b> <%= v.name %> </b></p>
-              </div>
-              <div class="text-muted">
-                <p>Owner: <%= v.owner.name %></p>
-              </div>
+        <div class="col-12 col-md-6 gap-3 border-start border-sm-top ps-4">
+          <div class="row">
+            <span class="mb-4">My accounts:</span>
+            <div class="col-12 d-flex flex-column flex-md-row gap-4">
+              <% if(accData.length<1){ %>
+                <span class="text-muted">no account are created, create new</span>
+                <% }else{ accData.map(v=>{ %>
+                  <div class="card p-3 d-flex flex-column justify-content-between">
+                    <div class="fw-bold">
+                      <p>Account name: <b>
+                          <%= v.name %>
+                        </b></p>
+                    </div>
+                    <div class="text-muted">
+                      <p>Owner: <%= v.owner.name %>
+                      </p>
+                    </div>
 
-              <a
-                class="btn btn-sm btn-primary link"
-                href="/viewTransaction/<%= v.id  %>"
-                >+ Transactions</a
-              >
-              <div class="d-flex justify-content-around mt-3">
-                <a
-                  class="btn btn-sm btn-danger link rounded-pill"
-                  href="/delAccount/<%= v.id  %>"
-                >
-                  <i class="fa-solid fa-trash"></i>
-                </a>
-                <a
-                  class="btn btn-sm btn-warning link rounded-pill"
-                  href="/editAccount/<%= v.id  %>"
-                >
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </a>
+                    <a class="btn btn-sm btn-primary link" href="/viewTransaction/<%= v.id  %>">+ Transactions</a>
+                    <div class="d-flex justify-content-around mt-3">
+                      <a class="btn btn-sm btn-danger link rounded-pill" href="/delAccount/<%= v.id  %>">
+                        <i class="fa-solid fa-trash"></i>
+                      </a>
+                      <a class="btn btn-sm btn-warning link rounded-pill" href="/editAccount/<%= v.id  %>">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </a>
 
-                <a
-                  href="/share/<%= v.id  %>"
-                  class="btn btn-sm btn-secondary link rounded-pill"
-                  ><i class="fa-solid fa-share"></i
-                ></a>
-              </div>
+                      <a href="/share/<%= v.id  %>" class="btn btn-sm btn-secondary link rounded-pill"><i
+                          class="fa-solid fa-share"></i></a>
+                    </div>
+                  </div>
+                  <% }) } %>
             </div>
-            <% }) } %>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>

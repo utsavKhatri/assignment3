@@ -54,7 +54,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error.message);
-      res.send(`message: ${error.message}`);
+      res.status(500).view("500",{error:error.message});
     }
   },
 
@@ -84,7 +84,7 @@ module.exports = {
       res.redirect(`/viewTransaction/${tID}`);
     } catch (error) {
       console.log(error.message);
-      res.send(`message: ${error.message}`);
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -101,6 +101,7 @@ module.exports = {
       return res.view("pages/editTransaction", { data: transactions });
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -122,6 +123,7 @@ module.exports = {
       return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -140,7 +142,7 @@ module.exports = {
       res.redirect(`/viewTransaction/${accID}`);
     } catch (error) {
       console.log(error.message);
-      res.send(`message: ${error.message}`);
+      res.status(500).view("500",{error:error.message});
     }
   },
 };

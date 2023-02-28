@@ -18,7 +18,7 @@ module.exports = {
    */
   viewLogin: async (req, res) => {
     sails.log.info("you visit login page");
-    res.view("pages/loginpage");
+    res.view("pages/loginpage",{error:false});
   },
   /**
    * GET /register
@@ -56,13 +56,13 @@ module.exports = {
       console.log("this user that search by emai =====");
       console.log(user);
       if (!user) {
-        return res.status(401).json({ message: "Invalid email" });
+        return res.status(401).view("pages/loginpage", {message:"Invalid Email",error:true});;
       }
 
       // Check if the password is correct
       const passwordMatches = await bcrypt.compare(password, user.password);
       if (!passwordMatches) {
-        return res.status(401).json({ message: "Invalid password" });
+        return res.status(401).view("pages/loginpage", {message:"Invalid Password",error:true});;
       }
 
       /* Creating a token and setting it to the session. */
@@ -72,7 +72,7 @@ module.exports = {
 
       req.session.jwt = token;
 
-      console.log("this is cookie from session" + req.session.jwt);
+      console.log("this is cookie from session " + req.session.jwt);
       // Set the session data and redirect to homepage
       req.session.user = {
         _id: user.id,
@@ -90,7 +90,7 @@ module.exports = {
       return res.redirect("/home");
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).view("500",{error:error.message});
     }
   },
 
@@ -160,7 +160,7 @@ module.exports = {
       return res.redirect("/login");
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -192,6 +192,7 @@ module.exports = {
       return res.view("pages/editprofile", { userDatam: editUser });
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
 
@@ -231,6 +232,7 @@ module.exports = {
       return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
   /**
@@ -251,6 +253,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error.message);
+      res.status(500).view("500",{error:error.message});
     }
   },
 
