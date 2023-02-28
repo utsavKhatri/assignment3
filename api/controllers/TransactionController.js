@@ -119,7 +119,7 @@ module.exports = {
       const updatedTransaction = await Transaction.updateOne(criteria).set(
         values
       );
-      return res.redirect("/");
+      return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
     }

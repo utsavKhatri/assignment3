@@ -172,7 +172,7 @@ module.exports = {
    */
   userLogout: async (req, res) => {
     req.session.destroy(() => {
-      res.redirect("/");
+      res.redirect("/login");
     });
   },
   /**
@@ -228,7 +228,7 @@ module.exports = {
 
       req.session.user.name = await updatedUser.name;
       req.session.user.email = await updatedUser.email;
-      return res.redirect("/");
+      return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
     }
@@ -247,7 +247,7 @@ module.exports = {
       const delAcc = await Accounts.destroy({ owner: id });
       const delUser = await User.destroy({ id: id });
       return req.session.destroy(() => {
-        res.redirect("/");
+        res.redirect("/login");
       });
     } catch (error) {
       console.log(error.message);

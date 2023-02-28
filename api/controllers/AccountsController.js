@@ -59,7 +59,7 @@ module.exports = {
     try {
       const account = await Accounts.create({ name, owner: id });
       console.log(account);
-      res.redirect("/");
+      res.redirect("/home");
     } catch (error) {
       console.log(error.message);
     }
@@ -95,7 +95,7 @@ module.exports = {
       const values = req.body;
       console.log(criteria, values);
       const updatedAccount = await Accounts.updateOne(criteria).set(values);
-      return res.redirect("/");
+      return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
     }
