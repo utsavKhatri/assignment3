@@ -18,7 +18,7 @@ module.exports = {
    */
   viewLogin: async (req, res) => {
     sails.log.info("you visit login page");
-    res.view("pages/loginpage",{error:false});
+    res.view("pages/loginpage", { error: false });
   },
   /**
    * GET /register
@@ -56,13 +56,20 @@ module.exports = {
       console.log("this user that search by emai =====");
       console.log(user);
       if (!user) {
-        return res.status(401).view("pages/loginpage", {message:"Invalid Email",error:true});;
+        return res
+          .status(401)
+          .view("pages/loginpage", { message: "Invalid Email", error: true });
       }
 
       // Check if the password is correct
       const passwordMatches = await bcrypt.compare(password, user.password);
       if (!passwordMatches) {
-        return res.status(401).view("pages/loginpage", {message:"Invalid Password",error:true});;
+        return res
+          .status(401)
+          .view("pages/loginpage", {
+            message: "Invalid Password",
+            error: true,
+          });
       }
 
       /* Creating a token and setting it to the session. */
@@ -81,16 +88,14 @@ module.exports = {
       };
       /* Checking if the user is an admin or not. If the user is an admin, then it sets the session data and
   redirects to the homepage. */
-      console.log(
-        "============= thi is post login page ======================="
-      );
-      sails.log.info(req.session);
+      
       console.log("====================================");
+      sails.log.info(req.session);
 
       return res.redirect("/home");
     } catch (error) {
       console.error(error);
-      res.status(500).view("500",{error:error.message});
+      res.status(500).view("500", { error: error.message });
     }
   },
 
@@ -133,7 +138,6 @@ module.exports = {
 
       console.log("====================================");
       console.log(req.session);
-      console.log("====================================");
 
       const defaultAccount = await Accounts.create({
         name: `${fetchedUser.name} default account`,
@@ -151,16 +155,15 @@ module.exports = {
         html: `<b>hello ${req.session.user.name},\n You successfully create account in expense manager app</b>`, // html body
       });
 
+      /* For testing email sending. */
       console.log("Message sent: %s", info.messageId);
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-      // Preview only available when sending through an Ethereal account
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
       return res.redirect("/login");
     } catch (error) {
       console.error(error);
-      res.status(500).view("500",{error:error.message});
+      res.status(500).view("500", { error: error.message });
     }
   },
   /**
@@ -192,7 +195,7 @@ module.exports = {
       return res.view("pages/editprofile", { userDatam: editUser });
     } catch (error) {
       console.log(error.message);
-      res.status(500).view("500",{error:error.message});
+      res.status(500).view("500", { error: error.message });
     }
   },
 
@@ -206,13 +209,7 @@ module.exports = {
    */
   updateProfile: async (req, res) => {
     try {
-      const dmta = req.session.user;
-      console.log("-------- this is old data --------");
-      console.log(dmta.name);
-      console.log("------ this is new data that update ----------");
       const newData = req.body.name;
-      console.log(newData);
-      console.log("----------------");
       const userId = req.session.user._id;
 
       const criteria = { _id: userId };
@@ -222,17 +219,15 @@ module.exports = {
       };
       console.log(criteria, values);
       const updatedUser = await User.updateOne(criteria).set(values);
-
-      console.log("------- this is updated data from above value ---------");
-      console.log(updatedUser);
-      console.log("----------------");
-
+      
+      console.log("Updated User",updatedUser);
+      
       req.session.user.name = await updatedUser.name;
       req.session.user.email = await updatedUser.email;
       return res.redirect("/home");
     } catch (error) {
       console.log(error.message);
-      res.status(500).view("500",{error:error.message});
+      res.status(500).view("500", { error: error.message });
     }
   },
   /**
@@ -253,7 +248,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error.message);
-      res.status(500).view("500",{error:error.message});
+      res.status(500).view("500", { error: error.message });
     }
   },
 
